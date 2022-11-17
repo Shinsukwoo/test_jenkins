@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'mind'
+=======
+    'Mes_crud',
+>>>>>>> cf9cf2d86e278fec981c42ac78962c4553adee6e
 ]
 
 MIDDLEWARE = [
