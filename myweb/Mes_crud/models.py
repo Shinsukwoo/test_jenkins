@@ -108,7 +108,7 @@ class DjangoMigrations(models.Model):
     applied = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'django_migrations'
 
 
@@ -133,7 +133,7 @@ class TbAbnormal(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_abnormal'
 
 
@@ -144,7 +144,7 @@ class TbAccessLog(models.Model):
     access_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_access_log'
 
 
@@ -153,7 +153,7 @@ class TbAuthorGroup(models.Model):
     author_name = models.CharField(max_length=100)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_author_group'
 
 
@@ -163,7 +163,7 @@ class TbAuthorMenu(models.Model):
     author_ordr = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_author_menu'
         unique_together = (('author', 'author_url'),)
 
@@ -179,7 +179,7 @@ class TbBom(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_bom'
 
 
@@ -189,7 +189,7 @@ class TbBomMaterial(models.Model):
     quantity = models.DecimalField(max_digits=20, decimal_places=5, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_bom_material'
         unique_together = (('bom_code', 'material_code'),)
 
@@ -200,14 +200,14 @@ class TbBomProcess(models.Model):
     ordr = models.IntegerField(db_column='ORDR')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_bom_process'
         unique_together = (('bom_code', 'process_code'),)
 
 
-class TbCustomer(models.Model):
-    customer_name = models.CharField(max_length=30)
+class TbCustomer(models.Model):         # 고객관리
     customer_code = models.CharField(primary_key=True, max_length=30)
+    customer_name = models.CharField(max_length=30)
     homepage = models.CharField(max_length=100, blank=True, null=True)
     customer_phone = models.CharField(max_length=30, blank=True, null=True)
     representative_name = models.CharField(max_length=30, blank=True, null=True)
@@ -220,7 +220,7 @@ class TbCustomer(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_customer'
 
 
@@ -235,7 +235,7 @@ class TbDocuCode(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_docu_code'
 
 
@@ -253,7 +253,7 @@ class TbDocuInfo(models.Model):
     docu_no = models.CharField(max_length=100)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_docu_info'
 
 
@@ -270,7 +270,7 @@ class TbEquipfault(models.Model):
     input_date = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_equipfault'
 
 
@@ -287,7 +287,7 @@ class TbFile(models.Model):
     file_id = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_file'
         unique_together = (('table_name', 'board_id', 'gubun', 'ordr'), ('table_name', 'board_id', 'gubun'),)
 
@@ -305,7 +305,7 @@ class TbFile1(models.Model):
     ordr = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_file1'
         unique_together = (('table_name', 'board_id', 'gubun', 'ordr'), ('file_id', 'table_name', 'board_id'),)
 
@@ -323,7 +323,7 @@ class TbFile2(models.Model):
     file_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_file_2'
         unique_together = (('table_name', 'board_id', 'gubun', 'ordr'), ('table_name', 'board_id', 'gubun'),)
 
@@ -341,7 +341,7 @@ class TbItem(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_item'
 
 
@@ -358,7 +358,7 @@ class TbItemBk(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_item_bk'
 
 
@@ -375,11 +375,11 @@ class TbMachine(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_machine'
 
 
-class TbMaterial(models.Model):
+class TbMaterial(models.Model):         # 원자재 정보
     material_code = models.TextField(primary_key=True)
     material_name = models.TextField(blank=True, null=True)
     unit = models.CharField(max_length=30)
@@ -392,11 +392,11 @@ class TbMaterial(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_material'
 
 
-class TbMaterialBk(models.Model):
+class TbMaterialBk(models.Model):       # 원자재 정보
     material_code = models.CharField(primary_key=True, max_length=50)
     material_name = models.CharField(max_length=100, blank=True, null=True)
     unit = models.CharField(max_length=30)
@@ -409,11 +409,11 @@ class TbMaterialBk(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_material_bk'
 
 
-class TbMenu(models.Model):
+class TbMenu(models.Model):         # 대분류
     menu_seq = models.IntegerField(primary_key=True)
     menu_name = models.CharField(max_length=30)
     menu_url = models.CharField(max_length=50)
@@ -423,7 +423,7 @@ class TbMenu(models.Model):
     menu_icon_feather = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_menu'
 
 
@@ -435,7 +435,7 @@ class TbNotice(models.Model):
     reg_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_notice'
 
 
@@ -447,11 +447,11 @@ class TbNoticeFile(models.Model):
     extension = models.CharField(max_length=100)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_notice_file'
 
 
-class TbOrder(models.Model):
+class TbOrder(models.Model):            # 수주관리
     order_code = models.CharField(primary_key=True, max_length=100)
     customer_code = models.CharField(max_length=30)
     item_code = models.CharField(max_length=100)
@@ -466,13 +466,13 @@ class TbOrder(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_order'
 
 
-class TbPlan(models.Model):
+class TbPlan(models.Model):         # 생산 계획
     flag = models.CharField(primary_key=True, max_length=5)
-    lot_num = models.CharField(max_length=30)
+    lot_num = models.CharField(max_length=30, unique=True)
     order_code = models.CharField(max_length=30, blank=True, null=True)
     item_code = models.CharField(max_length=100, blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)
@@ -485,12 +485,12 @@ class TbPlan(models.Model):
     plan_name = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_plan'
         unique_together = (('flag', 'lot_num'),)
 
 
-class TbProcess(models.Model):
+class TbProcess(models.Model):          # 공정관리
     process_code = models.CharField(primary_key=True, max_length=100)
     process_name = models.CharField(max_length=100)
     sort = models.CharField(max_length=30)
@@ -501,10 +501,26 @@ class TbProcess(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_process'
 
 
+class TbProductInout(models.Model):
+    product_seq = models.AutoField(primary_key=True)
+    inout_flag = models.CharField(max_length=5)
+    plan_flag = models.CharField(max_length=5)
+    lot_num = models.CharField(max_length=30)
+    quantity = models.IntegerField()
+    inout_date = models.DateField()
+    note = models.TextField(blank=True, null=True)
+    reg_date = models.DateField()
+    reg_id = models.CharField(max_length=30)
+    mod_date = models.DateField()
+    mod_id = models.CharField(max_length=30)
+
+    class Meta:
+        managed = True
+        db_table = 'tb_product_inout'
 
 
 class TbProductionLog(models.Model):
@@ -517,14 +533,26 @@ class TbProductionLog(models.Model):
     weightlowcnt = models.IntegerField(db_column='weightLowCnt', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_production_log'
         unique_together = (('curdatetime', 'linecode'),)
 
 
+class TbProgressHist(models.Model):
+    plan_flag = models.CharField(max_length=5)
+    lot_num = models.CharField(max_length=30)
+    process_code = models.CharField(max_length=30)
+    working_date = models.DateField()
+    flag = models.CharField(max_length=5)
+    quantity = models.IntegerField(blank=True, null=True)
+    reg_date = models.DateField()
+    reg_id = models.CharField(max_length=30)
+    mod_date = models.DateField()
+    mod_id = models.CharField(max_length=30)
+    ordr = models.AutoField(primary_key=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_progress_hist'
         unique_together = (('ordr', 'plan_flag', 'lot_num', 'process_code', 'working_date'),)
 
@@ -539,7 +567,7 @@ class TbQc(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_qc'
 
 
@@ -551,7 +579,7 @@ class TbQcDetail(models.Model):
     quantity = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_qc_detail'
         unique_together = (('ordr', 'lot_num'),)
 
@@ -569,7 +597,7 @@ class TbResourceInout(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_resource_inout'
 
 
@@ -591,7 +619,7 @@ class TbStaff(models.Model):
     mod_id = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_staff'
 
 
@@ -608,5 +636,5 @@ class TbStatus(models.Model):
     value5 = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tb_status'
