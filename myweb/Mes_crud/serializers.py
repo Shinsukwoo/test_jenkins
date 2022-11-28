@@ -50,3 +50,7 @@ class TbPlanOrderCreateSerializer(serializers.ModelSerializer):         # 생산
     class Meta:
         model = TbPlan
         fields = ('flag','lot_num','order_code','item_code','quantity','due_date','plan_name')
+class TbTest(serializers.ModelSerializer):
+    class Meta:
+        model = TbPlan
+        fields = ('order_code', 'lot_num')

@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import generics , mixins
 from rest_framework.generics import get_object_or_404
 from .serializers import TbPlansSerializer , TbCustomersSerializer , TbItemsSerializer , TbOrdersSerializer, TbMaterialsSerializer
-from .serializers import TbProcessSerializer, TbPlanCreateSerializer, TbPlanOrderCreateSerializer
+from .serializers import TbProcessSerializer, TbPlanCreateSerializer, TbPlanOrderCreateSerializer , TbTest
 from .models import TbPlan , TbCustomer , TbItem , TbOrder , TbMaterial , TbProcess
 # Create your views here.
 
@@ -72,4 +72,13 @@ class TbProcessAPIView(APIView):        # 공정조회 API
     def get(self, request):
         process = TbProcess.objects.all()
         serializer = TbProcessSerializer(process, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class TbPlanTestAPIView(APIView):
+    def get(self, request):
+        plan = TbPlan.objects.all()
+        serializer = TbTest(plan, many=True)
+        for ordercode in serializer.data:
+            print(ordercode.order_code)
+            print(ordercode.lot_num)
         return Response(serializer.data, status=status.HTTP_200_OK)
