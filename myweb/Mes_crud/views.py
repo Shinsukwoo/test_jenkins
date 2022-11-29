@@ -90,6 +90,6 @@ class TbPlanTestAPIView(APIView):
 
 class TbProductionLogAPIView(APIView):
     def get(self, request):
-        productionlog = TbProductionLog.objects.all()
+        productionlog = TbProductionLog.objects.filter(curdatetime__contains='20210506')
         serializer = TbProductionLogSerializer(productionlog, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
