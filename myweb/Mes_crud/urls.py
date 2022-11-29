@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import TbPlansAPIView , TbCustomersAPIView, TbItemsAPIView , TbOrdersAPIView, TbMaterialsAPIView , TbProcessAPIView
-from .views import TbPlanAPIView , TbPlanOrderCreateAPIView , TbPlanOrderRUDAPIView , TbPlanTestAPIView
+from .views import TbPlanAPIView , TbPlanOrderCreateAPIView , TbPlanOrderRUDAPIView , TbPlanTestAPIView , TbProductionLogAPIView
 
 urlpatterns = [
     path('plans/', TbPlansAPIView.as_view()),       # 전체 조회, 등록(계획) 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('create_order/', TbPlanOrderCreateAPIView.as_view()),      # 등록(수주)
     path('order/<str:lot_num>/', TbPlanOrderRUDAPIView.as_view()),      # 수정 (수주)
     path('test/plan/', TbPlanTestAPIView.as_view()),
+    path('productionlog/', TbProductionLogAPIView.as_view()),
 ]

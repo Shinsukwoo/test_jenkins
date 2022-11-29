@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-b9=#50wkz149#n%9_v@wp+u*e7o9h$5evwp&#(-*m6mf&i72mg
 DEBUG = True
 
 ALLOWED_HOSTS = [
-        'ec2-43-200-106-59.ap-northeast-2.compute.amazonaws.com'
+        'ec2-43-200-106-59.ap-northeast-2.compute.amazonaws.com', 'localhost'
     ]
 
 
@@ -121,7 +121,7 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 

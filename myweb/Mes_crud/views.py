@@ -1,12 +1,17 @@
+from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics , mixins
 from rest_framework.generics import get_object_or_404
 from .serializers import TbPlansSerializer , TbCustomersSerializer , TbItemsSerializer , TbOrdersSerializer, TbMaterialsSerializer
-from .serializers import TbProcessSerializer, TbPlanCreateSerializer, TbPlanOrderCreateSerializer , TbTest
-from .models import TbPlan , TbCustomer , TbItem , TbOrder , TbMaterial , TbProcess
+from .serializers import TbProcessSerializer, TbPlanCreateSerializer, TbPlanOrderCreateSerializer , TbTest , TbProductionLogSerializer
+from .models import TbPlan , TbCustomer , TbItem , TbOrder , TbMaterial , TbProcess , TbProductionLog
 # Create your views here.
+
+def index(request):
+    return render(request, "Mes_crud/index.html")
+
 
 class TbPlansAPIView(APIView):      # 생산 계획 조회, 등록(계획) API 
     def get(self, request):
@@ -81,4 +86,10 @@ class TbPlanTestAPIView(APIView):
         for ordercode in serializer.data:
             print(ordercode.order_code)
             print(ordercode.lot_num)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class TbProductionLogAPIView(APIView):
+    def get(self, request):
+        productionlog = TbProductionLog.objects.all()
+        serializer = TbProductionLogSerializer(productionlog, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

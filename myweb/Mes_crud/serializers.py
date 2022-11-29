@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import TbPlan , TbCustomer , TbOrder , TbItem , TbMaterial , TbProcess
+from .models import TbPlan , TbCustomer , TbOrder , TbItem , TbMaterial , TbProcess , TbProductionLog
 from rest_framework.validators import UniqueValidator
 
 class TbCustomersSerializer(serializers.ModelSerializer):       # 고객명, 고객코드
@@ -54,3 +54,9 @@ class TbTest(serializers.ModelSerializer):
     class Meta:
         model = TbPlan
         fields = ('order_code', 'lot_num')
+
+class TbProductionLogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TbProductionLog
+        fields = '__all__'
