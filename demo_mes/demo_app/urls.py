@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import TbPlansAPIView , TbCustomersAPIView, TbItemsAPIView , TbOrdersAPIView, TbMaterialsAPIView , TbProcessAPIView
-from .views import TbPlanAPIView , TbPlanOrderCreateAPIView , TbPlanOrderRUDAPIView , TbPlanTestAPIView
+from .views import TbPlanAPIView , TbPlanOrderCreateAPIView , TbPlanOrderRUDAPIView , TbPlanTestAPIView, TbproductionlogAPIView, TbnoticeAPIView, TbMachineAPIView, TbStaffAPIView, public_post_detail, TbnoticelistAPIView, TbAuthorGroupAPIView
 
 urlpatterns = [
     path('plans/', TbPlansAPIView.as_view()),       # 전체 조회, 등록(계획) 
@@ -13,4 +13,11 @@ urlpatterns = [
     path('create_order/', TbPlanOrderCreateAPIView.as_view()),      # 등록(수주)
     path('order/<str:lot_num>/', TbPlanOrderRUDAPIView.as_view()),      # 수정 (수주)
     path('test/plan/', TbPlanTestAPIView.as_view()),
+    path('TbProductionLog/', TbproductionlogAPIView.as_view()),
+    path('TbNoticer/<int:pk>/', TbnoticeAPIView.as_view()),
+    path('TbStaff/', TbStaffAPIView.as_view()),
+    path('TbNotice/', TbnoticelistAPIView.as_view()),
+    path('TbMachine/', TbMachineAPIView.as_view()),
+    path('TbAuthorGroup/', TbAuthorGroupAPIView.as_view()),
 ]
+

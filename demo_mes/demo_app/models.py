@@ -430,7 +430,7 @@ class TbMenu(models.Model):
 
 
 class TbNotice(models.Model):
-    notice_seq = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(primary_key=True,null=False,auto_created=True)
     notice_subject = models.CharField(max_length=100)
     notice_content = models.TextField(blank=True, null=True)
     reg_date = models.DateField()

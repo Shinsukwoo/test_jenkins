@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-md(5l0e5v^36ge@9i_@ap6hb1*6us&0edyfcv*^v&jcg=7yn71
 DEBUG = True
 
 ALLOWED_HOSTS = [
-        
+
     ]
 
 
@@ -59,6 +59,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'demo_mes.urls'
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -84,10 +86,10 @@ WSGI_APPLICATION = 'demo_mes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE' : 'django.db.backends.mysql',
-        'NAME' : 'test_dbeaver',
+        'NAME' : 'database1',
         'USER' : 'root',
-        'PASSWORD' : '20221111',
-        'HOST' : 'test-dbeaver1.cuigmsrbttex.ap-northeast-2.rds.amazonaws.com',
+        'PASSWORD' : 'tkdgus12!@',
+        'HOST' : 'localhost',
         'PORT' : '3306',
     }
 }
@@ -144,6 +146,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST= [
     'http://127.0.0.1:8000',
-    'http://localhost:3001'
+    'http://localhost:3000'
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']

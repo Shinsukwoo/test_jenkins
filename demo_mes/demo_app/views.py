@@ -5,10 +5,12 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics , mixins
-from rest_framework.generics import get_object_or_404
+from django.shortcuts  import get_object_or_404
 from .serializers import TbPlansSerializer , TbCustomersSerializer , TbItemsSerializer , TbOrdersSerializer, TbMaterialsSerializer
-from .serializers import TbProcessSerializer, TbPlanCreateSerializer, TbPlanOrderCreateSerializer , TbTest
-from .models import TbPlan , TbCustomer , TbItem , TbOrder , TbMaterial , TbProcess
+from .serializers import TbProcessSerializer, TbPlanCreateSerializer, TbPlanOrderCreateSerializer , TbTest, TbproductionlogSerializer, TbnoticeSerializer, TbMachineSerializer,TbStaffSerializer,TbAuthorGroupSerializer
+from .models import TbPlan , TbCustomer , TbItem , TbOrder , TbMaterial , TbProcess, TbProductionLog, TbNotice, TbMachine, TbStaff, TbAuthorGroup
+from rest_framework.parsers import JSONParser
+from django.http import Http404
 # Create your views here.
 def index(request):
     return render(request, "demo_app/index.html")
@@ -57,6 +59,12 @@ class TbCustomersAPIView(APIView):      # 고객조회 API
         customers = TbCustomer.objects.all()
         serializer = TbCustomersSerializer(customers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request):
+        serializer = TbCustomersSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TbItemsAPIView(APIView):      # 제품조회 API
@@ -87,3 +95,86 @@ class TbPlanTestAPIView(APIView):
             print(ordercode.order_code)
             print(ordercode.lot_num)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TbproductionlogAPIView(APIView):      # 모니터링 API
+    def get(self, request):
+        productionlog = TbProductionLog.objects.all()
+        serializer = TbproductionlogSerializer(productionlog, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+# @csrf_exempt
+class TbnoticeAPIView(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(TbNotice, pk=pk)
+    def get(self, request,pk):
+        notice = self.get_object(pk)
+        serializer = TbnoticeSerializer(notice)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    def put(self, request, pk):
+        post = self.get_object(pk)
+        serializer = TbnoticeSerializer(post,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self,request, pk):
+        post = self.get_object(pk)
+        post.delete()
+        return Response(status=status.HTTP_200_OK)
+
+
+
+class TbnoticelistAPIView(APIView):
+    def get(self, request,format=None):
+        notice = TbNotice.objects.all()
+        serializer = TbnoticeSerializer(notice, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request):
+        serializer = TbnoticeSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer._validated_data.get('notice_subject'))
+            # print(serializer.data('notice_subject'))
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+class TbMachineAPIView(APIView):
+    def get(self, request):
+        notice = TbMachine.objects.all()
+        serializer = TbMachineSerializer(notice, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request):
+        serializer = TbMachineSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TbStaffAPIView(APIView):
+
+    def get(self, request):
+        notice = TbStaff.objects.all()
+        serializer = TbStaffSerializer(notice, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request):
+        serializer = TbStaffSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer._validated_data)
+            # print(serializer.data('notice_subject'))
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TbAuthorGroupAPIView(APIView):
+  def get(self, request):
+        notice = TbAuthorGroup.objects.all()
+        serializer = TbAuthorGroupSerializer(notice, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+public_post_detail = TbnoticeAPIView.as_view()
